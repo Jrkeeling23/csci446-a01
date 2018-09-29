@@ -2,6 +2,7 @@ running = True
 
 
 def read_in_maze(string):
+
     if string == 'O':
         print("O")
     elif string == 'M':
