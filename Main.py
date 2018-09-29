@@ -13,5 +13,11 @@ def read_in_maze(string):
 
 
 while running:
+<<<<<<< Updated upstream
     inp = ""+input("Enter the maze type you would like to run, M for medium maze, O for open maze, and L for large maze: ")
     read_in_maze(inp)
+=======
+    string = "" + input("Enter the maze type you would like to run, "
+                        "M for medium maze, O for open maze, and L for large maze: ")
+    readInMaze(string)
+>>>>>>> Stashed changes
