@@ -15,6 +15,8 @@ class MazeNode:
     def __init__(self, x_loc, y_loc):
         self.coordinates = [x_loc, y_loc]
         self.visited = False
+        self.is_start = False
+        self.is_end = False
 
         # provides a function for updating the local node list
         self.__local_nodes = []    # add in form [distance, MazeNode]
@@ -47,3 +49,8 @@ class MazeNode:
         # didn't find any matching nodes, so other_node is not currently connected
         return False
 
+    def get_local_nodes(self):
+        """
+        :return: the local nodes list for this node
+        """
+        return self.__local_nodes
