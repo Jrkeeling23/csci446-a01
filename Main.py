@@ -1,12 +1,25 @@
 """
 Authors: George Engel, Cory Johns, Justin Keeling 
 """
+from MazeNode import MazeNode
 
 running = True
+start_indicator = 'P'  # string representing the start of the maze
+end_indicator = '*'    # string representing the end of the maze
+wall_indicator = '%'   # string representing a wall in the maze
 
 
 def read_in_maze(string):
     global running
+
+    def print_maze(maze):
+        for row in maze:
+            for i in row:
+                if i == wall_indicator:
+                    print("█", end="")
+                else:
+                    print(i, end="")
+            print("")
 
     def __build_maze(file):
         nonlocal maze_xy
@@ -21,6 +34,25 @@ def read_in_maze(string):
                     if __char != '\n':
                         __x_tmp.append(__char)
                 maze_xy.append(__x_tmp)
+
+    def __build_nodes():
+        """
+        Build the matrix of nodes from the maze array
+        :return: 
+        """
+        global start_indicator
+        nonlocal maze_xy
+        # find start row
+        start_row = [start_row for start_row in maze_xy if start_indicator in start_row][0]
+        # find start x, y
+        sx, sy = maze_xy.index(start_row), start_row.index(start_indicator)
+
+        # make the starting node
+        start_node = MazeNode(sx, sy)
+        start_node.is_start = True
+
+        # TODO add all connected nodes from start_node
+        pass
 
     # the maze will go here, overwrites for each run
     maze_xy = []
@@ -37,9 +69,7 @@ def read_in_maze(string):
     else:
         print("Please enter O, M, or L")
 
-    for __row in maze_xy:
-        print(__row)
-
+    print_maze(maze_xy)
 
 while running:
     inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
