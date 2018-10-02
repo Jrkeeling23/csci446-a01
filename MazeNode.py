@@ -1,6 +1,3 @@
-import queue
-
-
 class MazeNode:
     """
     Basic class for Nodes in the maze, a Node is defined as a square in the maze where ether a corner or 
@@ -10,7 +7,7 @@ class MazeNode:
     Important points:
     - uses a function to update local_nodes list
     - distance in local_nodes list is the path length between the nodes
-    - local_nodes is a priority queue on distance
+    - local_nodes is a list
     
     More information on python classes: https://docs.python.org/3/tutorial/classes.html
     More information on python builtin queues: https://docs.python.org/3/library/queue.html
@@ -20,7 +17,7 @@ class MazeNode:
         self.visited = False
 
         # provides a function for updating the local node list
-        self.__local_nodes = queue.PriorityQueue()    # add in form put([distance, MazeNode]) to order by distance
+        self.__local_nodes = []    # add in form [distance, MazeNode]
 
     def add_local_node(self, node, distance):
         """
@@ -28,5 +25,25 @@ class MazeNode:
         :param node: the local node
         :param distance: the distance to the node
         """
-        self.__local_nodes.put([distance, node])
+        # connect node if it is not connected already
+        if not self.is_connected(node):
+            self.__local_nodes.append([distance, node])
+        # from node, connect this node if it is not already connected
+        node.add_local_node(self, distance)
+
+    def is_connected(self, other_node):
+        """
+        Checks if other_node is already connected to this node
+        :param other_node: the node to check for connection
+        :return: True / False
+        """
+        for node in self.__local_nodes:
+            # if list is empty, false
+            if node is None:
+                return False
+            # nodes are uniquely defined by there coordinates
+            if node.coordinates == other_node.coordinates:
+                return True
+        # didn't find any matching nodes, so other_node is not currently connected
+        return False
 
