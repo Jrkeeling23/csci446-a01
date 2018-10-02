@@ -12,6 +12,15 @@ wall_indicator = '%'   # string representing a wall in the maze
 def read_in_maze(string):
     global running
 
+    def print_maze(maze):
+        for row in maze:
+            for i in row:
+                if i == wall_indicator:
+                    print("█", end="")
+                else:
+                    print(i, end="")
+            print("")
+
     def __build_maze(file):
         nonlocal maze_xy
         # open file, make a 2d list of each letter
@@ -60,9 +69,7 @@ def read_in_maze(string):
     else:
         print("Please enter O, M, or L")
 
-    for __row in maze_xy:
-        print(__row)
-
+    print_maze(maze_xy)
 
 while running:
     inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
