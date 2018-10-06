@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="252b9243-699e-47f4-af37-b82221fda795" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/csci446-a01.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DFS.py" beforeDir="false" afterPath="$PROJECT_DIR$/DFS.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,26 +23,26 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
+          <entry key="py" value="4" />
           <entry key="txt" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="3" />
+          <entry key="Python" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3180" />
+          <entry key="py" value="3825" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="3180" />
+          <entry key="Python" value="3825" />
         </counts>
       </usages-collector>
     </session>
@@ -66,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="82">
+            <state relative-caret-position="920">
               <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
               <folding>
                 <marker date="1538866875562" expanded="true" signature="297:300" ph="..." />
@@ -75,14 +70,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DFS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="46">
-              <caret line="2" column="62" lean-forward="true" selection-start-line="2" selection-start-column="62" selection-end-line="2" selection-end-column="62" />
+            <state relative-caret-position="161">
+              <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
               <folding>
-                <marker date="1538866875600" expanded="true" signature="1194:1195" ph="..." />
-                <marker date="1538866875600" expanded="true" signature="1194:1200" ph="..." />
+                <marker date="1538869381999" expanded="true" signature="1193:1194" ph="..." />
+                <marker date="1538869381999" expanded="true" signature="1193:1199" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BFS.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="335">
+              <caret line="40" column="61" lean-forward="true" selection-start-line="40" selection-start-column="61" selection-end-line="40" selection-end-column="61" />
+              <folding>
+                <marker date="1538869728826" expanded="true" signature="599:600" ph="..." />
+                <marker date="1538869728826" expanded="true" signature="812:1271" ph="..." />
+                <marker date="1538869728826" expanded="true" signature="1297:1458" ph="..." />
               </folding>
             </state>
           </provider>
@@ -124,6 +133,7 @@
         <option value="$PROJECT_DIR$/medium maze.txt" />
         <option value="$PROJECT_DIR$/Main.py" />
         <option value="$PROJECT_DIR$/DFS.py" />
+        <option value="$PROJECT_DIR$/BFS.py" />
       </list>
     </option>
   </component>
@@ -213,7 +223,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.122934565" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.122934565" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -259,7 +269,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
+        <state relative-caret-position="920">
           <caret line="40" column="11" lean-forward="true" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="11" />
           <folding>
             <marker date="1538866875562" expanded="true" signature="297:300" ph="..." />
@@ -269,11 +279,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DFS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="62" lean-forward="true" selection-start-line="2" selection-start-column="62" selection-end-line="2" selection-end-column="62" />
+        <state relative-caret-position="161">
+          <caret line="7" column="38" lean-forward="true" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
           <folding>
-            <marker date="1538866875600" expanded="true" signature="1194:1195" ph="..." />
-            <marker date="1538866875600" expanded="true" signature="1194:1200" ph="..." />
+            <marker date="1538869381999" expanded="true" signature="1193:1194" ph="..." />
+            <marker date="1538869381999" expanded="true" signature="1193:1199" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BFS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="40" column="61" lean-forward="true" selection-start-line="40" selection-start-column="61" selection-end-line="40" selection-end-column="61" />
+          <folding>
+            <marker date="1538869728826" expanded="true" signature="599:600" ph="..." />
+            <marker date="1538869728826" expanded="true" signature="812:1271" ph="..." />
+            <marker date="1538869728826" expanded="true" signature="1297:1458" ph="..." />
           </folding>
         </state>
       </provider>

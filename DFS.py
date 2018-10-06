@@ -25,7 +25,7 @@ def find_connected_nodes(current_node):
         if not check_if_visited(connecting_node):  # If the node has not been visited
             break  # break from while-loop to return the unvisited connecting node
         elif check_if_visited(connecting_node):  # If the node has been visited
-            if connected_nodes.count < 2:  # If the list only contains 1 value, which is visited, return null
+            if len(connected_nodes) < 2:  # If the list only contains 1 value, which is visited, return null
                 return None  # Returns 'null' if all the nodes are visited
             else:
                 connecting_node = connected_nodes.pop()  # Obtains the next connecting node
