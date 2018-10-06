@@ -30,8 +30,8 @@ class MazeNode:
         # connect node if it is not connected already
         if not self.is_connected(node):
             self.__local_nodes.append([distance, node])
-        # from node, connect this node if it is not already connected
-        node.add_local_node(self, distance)
+            # from node, connect this node if it is not already connected
+            node.add_local_node(self, distance)
 
     def is_connected(self, other_node):
         """
@@ -39,7 +39,9 @@ class MazeNode:
         :param other_node: the node to check for connection
         :return: True / False
         """
-        for node in self.__local_nodes:
+        for n in self.__local_nodes:
+            # use the node not the distance
+            node = n[1]
             # if list is empty, false
             if node is None:
                 return False
@@ -51,6 +53,7 @@ class MazeNode:
 
     def get_local_nodes(self):
         """
-        :return: the local nodes list for this node
+        :return: a list of [distance, node] where distance is the Manhattan distance to the node
+        and node is the node adjacent to this one.
         """
         return self.__local_nodes
