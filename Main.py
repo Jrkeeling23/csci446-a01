@@ -34,25 +34,102 @@ def read_in_maze(string):
                     if __char != '\n':
                         __x_tmp.append(__char)
                 maze_xy.append(__x_tmp)
+        # convert into nodes
+        return __build_nodes()
 
     def __build_nodes():
         """
         Build the matrix of nodes from the maze array
-        :return: 
+        
+        Important design points:
+        - conversion starts at index (0, 0) and progresses along a row
+          and adds/connects nodes (row+1, col) and (row, col+1) if they are not walls
+        - this allows us to hit all the nodes without checking the same node twice and 
+          guarantees the that the nodes we are testing are not made already
+        - the program will return the node that contains the start, this will act as the 'root' and 
+          will consequently lose all islands not reachable from the root
+        
+        :return: start_node, the node containing the start of the maze, which functions as the 'root' node
         """
         global start_indicator
         nonlocal maze_xy
-        # find start row
-        start_row = [start_row for start_row in maze_xy if start_indicator in start_row][0]
-        # find start x, y
-        sx, sy = maze_xy.index(start_row), start_row.index(start_indicator)
 
-        # make the starting node
-        start_node = MazeNode(sx, sy)
-        start_node.is_start = True
+        def add_unique_node(row, col):
+            """
+            Add a new node, if it has not been made already at the given row, col
+            or returns the existing node
+            :param row: row of the new node
+            :param col: col of the new node
+            :return: node, the new or already existing node at row, col OR None if the target is a wall
+            """
+            nonlocal start_node
 
-        # TODO add all connected nodes from start_node
-        pass
+            # only add a node if it is not a wall
+            if maze_xy[row][col] != wall_indicator:
+                # check if there is a node there, add if there is not
+                if tmp_node_list[row][col] is None:
+                    node = MazeNode(row, col)
+                    tmp_node_list[row][col] = node
+                else:
+                    node = tmp_node_list[row][col]
+
+                # check if this node is the start / end
+                if maze_xy[row][col] == start_indicator:
+                    node.is_start = True
+                    start_node = node
+                elif maze_xy[row][col] == end_indicator:
+                    node.is_end = True
+
+                # return the node for the row, col
+                return node
+            else:
+                return None
+
+        def check_next_node(go_right, current_node):
+            """
+            Checks if the adjacent node to the right/ below the given node is connected,
+            will make a new node there and connect it if it is note present if the space is not a wall
+            :param go_right: True if testing the node to the right, False if testing the node below
+            :param current_node: the node to start from
+            """
+            # get delta coordinates for the target node
+            delta_col = int(go_right)
+            delta_row = int(not go_right)
+            # get coordinates of the current node
+            current_row, current_col = current_node.coordinates
+
+            # test if in bounds
+            if current_row + delta_row < len(maze_xy) and current_col + delta_col < len(maze_xy[0]):
+                # add target node
+                local_node = add_unique_node(current_row + delta_row, current_col + delta_col)
+
+                if local_node is None:
+                    # node was a wall
+                    return
+                else:
+                    # connect current node and target node
+                    current_node.add_local_node(local_node, 1)
+
+        # placeholder for the start / root node
+        start_node = None
+        # make empty 2d list to temporarily index the nodes
+        tmp_node_list = [i[:] for i in [[None] * len(maze_xy[0])] * len(maze_xy)]
+
+        # make the node mesh
+        for r in range(len(tmp_node_list)):
+            for c in range(len(tmp_node_list[r])):
+                    # add the node
+                    this_node = add_unique_node(r, c)
+
+                    # check if location was not a wall
+                    if this_node is not None:
+                        # check lower
+                        check_next_node(False, this_node)
+                        # check right
+                        check_next_node(True, this_node)
+
+        # start_node and tmp_node_list are updated in the helper functions
+        return start_node
 
     # the maze will go here, overwrites for each run
     maze_xy = []
