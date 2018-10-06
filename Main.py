@@ -5,8 +5,8 @@ from MazeNode import MazeNode
 
 running = True
 start_indicator = 'P'  # string representing the start of the maze
-end_indicator = '*'    # string representing the end of the maze
-wall_indicator = '%'   # string representing a wall in the maze
+end_indicator = '*'  # string representing the end of the maze
+wall_indicator = '%'  # string representing a wall in the maze
 
 
 def read_in_maze(string):
@@ -118,15 +118,15 @@ def read_in_maze(string):
         # make the node mesh
         for r in range(len(tmp_node_list)):
             for c in range(len(tmp_node_list[r])):
-                    # add the node
-                    this_node = add_unique_node(r, c)
+                # add the node
+                this_node = add_unique_node(r, c)
 
-                    # check if location was not a wall
-                    if this_node is not None:
-                        # check lower
-                        check_next_node(False, this_node)
-                        # check right
-                        check_next_node(True, this_node)
+                # check if location was not a wall
+                if this_node is not None:
+                    # check lower
+                    check_next_node(False, this_node)
+                    # check right
+                    check_next_node(True, this_node)
 
         # start_node and tmp_node_list are updated in the helper functions
         return start_node
@@ -147,6 +147,7 @@ def read_in_maze(string):
         print("Please enter O, M, or L")
 
     print_maze(maze_xy)
+
 
 while running:
     inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
