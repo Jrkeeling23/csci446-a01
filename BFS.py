@@ -30,7 +30,7 @@ class BFS:
         self.solve_maze()
 
     def solve_maze(self):
-        while not self.current_node.is_end:
+        while not self.current_node.is_end or self.frontier_queue.empty():
             connecting_nodes = find_connected_nodes(self.current_node)
             if connecting_nodes.__sizeof__() > 0:
                 self.remove_from_frontier()
