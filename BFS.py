@@ -27,22 +27,24 @@ class BFS:
         self.frontier_queue = queue.Queue(size)
         self.current_node = start_node
         self.add_to_frontier()
-        self.solve_maze()
+        self.visited = []
 
     def solve_maze(self):
         while not self.current_node.is_end or self.frontier_queue.empty():
+            # once the current node equals the end state or the queue is empty
             connecting_nodes = find_connected_nodes(self.current_node)
             if connecting_nodes.__sizeof__() > 0:
-                self.remove_from_frontier()
+                self.remove_from_frontier()  # remove the current node from queue
                 for size in range(len(connecting_nodes)):
                     self.current_node = connecting_nodes[size]
                     self.add_to_frontier()
             else:
                 self.current_node = self.frontier_queue.get()
+        return self.visited
 
     def add_to_frontier(self):
         self.frontier_queue.put(self.current_node)  # add current_node to queue
         change_visited_status(self.current_node)  # Change visited to true
 
     def remove_from_frontier(self):
-        self.frontier_queue.get()  # Remove from queue
+        self.visited.append(self.frontier_queue.get())    # Remove from queue

@@ -39,7 +39,7 @@ class DFS:
         self.frontier_stack = []
         self.current_node = start_node
         self.add_to_frontier()
-        self.solve_maze()
+        self.visited = []
 
     def solve_maze(self):
         while not self.current_node.is_end:  # continue until end of maze.
@@ -49,10 +49,11 @@ class DFS:
             else:
                 self.current_node = possible_node  # Make current node now the unvisited returned node.
                 self.add_to_frontier()  # Add unvisited node to stack
+        return self.visited
 
     def add_to_frontier(self):
         self.frontier_stack.append(self.current_node)
         change_visited_status(self.current_node)
 
     def remove_from_frontier(self):
-        self.frontier_stack.pop()
+        self.visited.append(self.frontier_stack.pop())
