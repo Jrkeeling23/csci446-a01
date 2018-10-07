@@ -131,6 +131,14 @@ def read_in_maze(string):
         # start_node and tmp_node_list are updated in the helper functions
         return start_node
 
+    def top_level_search(root):
+        """
+        Finds the solution to the maze with start location 'root' using DFS, BFS, Greedy, or A*
+        :param root: 
+        :return: 
+        """
+        pass
+
     # the maze will go here, overwrites for each run
     maze_xy = []
     # maze txt files must be in the same directory with the given names
