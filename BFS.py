@@ -40,6 +40,7 @@ class BFS:
                     self.add_to_frontier()
             else:
                 self.current_node = self.frontier_queue.get()
+        return self.visited
 
     def add_to_frontier(self):
         self.frontier_queue.put(self.current_node)  # add current_node to queue

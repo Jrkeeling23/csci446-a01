@@ -49,6 +49,7 @@ class DFS:
             else:
                 self.current_node = possible_node  # Make current node now the unvisited returned node.
                 self.add_to_frontier()  # Add unvisited node to stack
+        return self.visited
 
     def add_to_frontier(self):
         self.frontier_stack.append(self.current_node)
