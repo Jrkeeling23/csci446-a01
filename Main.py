@@ -4,6 +4,8 @@ Authors: George Engel, Cory Johns, Justin Keeling
 from MazeNode import MazeNode
 from DFS import DFS
 from BFS import BFS
+from GREEDY import GREEDY
+from A_STAR import A_STAR
 
 running = True
 start_indicator = 'P'  # string representing the start of the maze
@@ -59,7 +61,7 @@ def read_in_maze(string):
             :param col: col of the new node
             :return: node, the new or already existing node at row, col OR None if the target is a wall
             """
-            nonlocal start_node
+            nonlocal start_node, end_node
 
             # only add a node if it is not a wall
             if maze_xy[row][col] != wall_indicator:
@@ -76,6 +78,7 @@ def read_in_maze(string):
                     start_node = node
                 elif maze_xy[row][col] == end_indicator:
                     node.is_end = True
+                    end_node = node
 
                 # return the node for the row, col
                 return node
@@ -109,8 +112,7 @@ def read_in_maze(string):
 
         global start_indicator
         nonlocal maze_xy
-        # placeholder for the start / root node
-        start_node = None
+
         # make empty 2d list to temporarily index the nodes
         tmp_node_list = [i[:] for i in [[None] * len(maze_xy[0])] * len(maze_xy)]
 
@@ -127,8 +129,7 @@ def read_in_maze(string):
                     # check right
                     check_next_node(True, this_node)
 
-        # start_node and tmp_node_list are updated in the helper functions
-        return start_node
+        # start_node, end_node, and tmp_node_list are updated in the helper functions
 
     def print_maze(maze, sub_list=None, sub_char="."):
         """
@@ -156,18 +157,18 @@ def read_in_maze(string):
                     output_file.write(maze[i][j])
             output_file.write("\n")
 
-    def top_level_search(func, root):
+    def top_level_search(func, *args):
         """
         Finds the solution to the maze with start location 'root' using DFS, BFS, Greedy, or A*.
         Also prints the solution to standard output.
         
         :param func: the search function to use, the search function should take the root node as an input
         and return a list of each node visited along the path.
-        :param root: the node containing the start point
+        :param args: any extra parameters to pass to the search function
         :return : Nothing
         """
         # get list of path nodes
-        num_steps, num_expanded, solution_list = func(root)
+        num_steps, num_expanded, solution_list = func(*args)
         output_file.write("Number of steps in solution: " + num_steps
                           + "\nNumber of nodes expanded: " + num_expanded + "\n")
 
@@ -185,15 +186,16 @@ def read_in_maze(string):
 
     # the maze will go here, overwrites for each run
     maze_xy = []
-    root_node = None
+    start_node = None
+    end_node = None
 
     # maze txt files must be in the same directory with the given names
     if string == 'O' or string == 'o':
-        root_node = __build_maze("open maze.txt")
+        __build_maze("open maze.txt")
     elif string == 'M' or string == 'm':
-        root_node = __build_maze("medium maze.txt")
+        __build_maze("medium maze.txt")
     elif string == 'L' or string == 'l':
-        root_node = __build_maze("large maze.txt")
+        __build_maze("large maze.txt")
     elif string == 'Q' or string == 'q':
         # quit the loop
         running = False
@@ -202,14 +204,18 @@ def read_in_maze(string):
 
     if running:
         dfs_obj = DFS()
-        # bfs_obj = BFS(len(maze_xy)*len(maze_xy[0]))
-        search_function_list = [["Depth First Search", dfs_obj.solve_maze]]
-        # ["Breadth First Search", bfs_obj.solve_maze]
+        bfs_obj = BFS()
+        greedy_obj = GREEDY()
+        astar_obj = A_STAR()
+        search_function_list = [["Depth First Search", dfs_obj.solve_maze, start_node],
+                                ["Breadth First Search", bfs_obj.solve_maze],
+                                ["Greedy Search", greedy_obj.solve_maze, start_node, end_node],
+                                ["A* Search", astar_obj.solve_maze, start_node, end_node]]
 
         # print the results of each search
-        for fname, f in search_function_list:
+        for fname, f, nodes in search_function_list:
             output_file.write(fname + ": \n")
-            top_level_search(f, root_node)
+            top_level_search(f, nodes)
 
 
 while running:
