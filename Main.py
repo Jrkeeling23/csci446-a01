@@ -2,26 +2,25 @@
 Authors: George Engel, Cory Johns, Justin Keeling 
 """
 from MazeNode import MazeNode
+from DFS import DFS
+from BFS import BFS
 
 running = True
 start_indicator = 'P'  # string representing the start of the maze
 end_indicator = '*'  # string representing the end of the maze
 wall_indicator = '%'  # string representing a wall in the maze
+output_file = open('output.txt', 'w+')
 
 
 def read_in_maze(string):
     global running
 
-    def print_maze(maze):
-        for row in maze:
-            for i in row:
-                if i == wall_indicator:
-                    print("█", end="")
-                else:
-                    print(i, end="")
-            print("")
-
     def __build_maze(file):
+        """
+        Builds a node matrix from the input file
+        :param file: containing the maze in text form
+        :return: the root node of the matrix
+        """
         nonlocal maze_xy
         # open file, make a 2d list of each letter
         # with covers try-catch business, '__' prefix is 'private' sort of
@@ -51,8 +50,6 @@ def read_in_maze(string):
         
         :return: start_node, the node containing the start of the maze, which functions as the 'root' node
         """
-        global start_indicator
-        nonlocal maze_xy
 
         def add_unique_node(row, col):
             """
@@ -110,6 +107,8 @@ def read_in_maze(string):
                     # connect current node and target node
                     current_node.add_local_node(local_node, 1)
 
+        global start_indicator
+        nonlocal maze_xy
         # placeholder for the start / root node
         start_node = None
         # make empty 2d list to temporarily index the nodes
@@ -131,25 +130,89 @@ def read_in_maze(string):
         # start_node and tmp_node_list are updated in the helper functions
         return start_node
 
+    def print_maze(maze, sub_list=None, sub_char="."):
+        """
+        Prints out the maze while substituting the given list of [row, col] locations for the sub_char
+        :param maze: the base maze
+        :param sub_list: list in form [[row, col], [...], ...] of sub locations
+        :param sub_char: char to replace the locations in sub_list with
+        :return: Nothing
+        """
+
+        for i in range(len(maze)):
+            for j in range(len(maze[i])):
+                sub = False
+                # find if current square should be substituted
+                if sub_list is not None:
+                    for x, y in sub_list:
+                        if i == x and j == y:
+                            sub = True
+                            break
+                if sub and maze[i][j] != start_indicator and maze[i][j] != end_indicator:
+                    output_file.write(sub_char)
+                elif maze[i][j] == wall_indicator:
+                    output_file.write("%")
+                else:
+                    output_file.write(maze[i][j])
+            output_file.write("\n")
+
+    def top_level_search(func, root):
+        """
+        Finds the solution to the maze with start location 'root' using DFS, BFS, Greedy, or A*.
+        Also prints the solution to standard output.
+        
+        :param func: the search function to use, the search function should take the root node as an input
+        and return a list of each node visited along the path.
+        :param root: the node containing the start point
+        :return : Nothing
+        """
+        # get list of path nodes
+        solution_list = func(root)
+
+        sub_list = []
+        # convert solution to sub points
+        for node in solution_list:
+            sub_list.append(node.coordinates)
+
+        # print solution
+        print_maze(maze_xy, sub_list)
+
+        # reset all nodes back to unvisited
+        for node in solution_list:
+            node.visited = False
+
     # the maze will go here, overwrites for each run
     maze_xy = []
+    root_node = None
+
     # maze txt files must be in the same directory with the given names
     if string == 'O' or string == 'o':
-        __build_maze("open maze.txt")
+        root_node = __build_maze("open maze.txt")
     elif string == 'M' or string == 'm':
-        __build_maze("medium maze.txt")
+        root_node = __build_maze("medium maze.txt")
     elif string == 'L' or string == 'l':
-        __build_maze("large maze.txt")
+        root_node = __build_maze("large maze.txt")
     elif string == 'Q' or string == 'q':
         # quit the loop
         running = False
     else:
         print("Please enter O, M, or L")
 
-    print_maze(maze_xy)
+    if running:
+        dfs_obj = DFS()
+        bfs_obj = BFS(root_node, len(maze_xy)*len(maze_xy[0]))
+        search_function_list = [["Depth First Search", dfs_obj.solve_maze]]
+        # ["Breadth First Search", bfs_obj.solve_maze]
+
+        # print the results of each search
+        for fname, f in search_function_list:
+            output_file.write(fname + ": \n")
+            top_level_search(f, root_node)
 
 
 while running:
     inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
                      " O for open maze, and L for large maze, and Q to quit: ")
     read_in_maze(inp)
+
+output_file.close()
