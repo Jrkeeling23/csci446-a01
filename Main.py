@@ -155,17 +155,18 @@ def read_in_maze(string):
                     print(maze[i][j], end="")
             print("")
 
-    def top_level_search(func):
+    def top_level_search(func, root):
         """
         Finds the solution to the maze with start location 'root' using DFS, BFS, Greedy, or A*.
         Also prints the solution to standard output.
         
         :param func: the search function to use, the search function should take the root node as an input
         and return a list of each node visited along the path.
+        :param root: the node containing the start point
         :return : Nothing
         """
         # get list of path nodes
-        solution_list = func()
+        solution_list = func(root)
 
         sub_list = []
         # convert solution to sub points
@@ -196,7 +197,7 @@ def read_in_maze(string):
     else:
         print("Please enter O, M, or L")
 
-    dfs_obj = DFS(root_node)
+    dfs_obj = DFS()
     bfs_obj = BFS(root_node, len(maze_xy)*len(maze_xy[0]))
     search_function_list = [["Depth First Search", dfs_obj.solve_maze],
                             ["Breadth First Search", bfs_obj.solve_maze]]
@@ -204,7 +205,7 @@ def read_in_maze(string):
     # print the results of each search
     for fname, f in search_function_list:
         print("Now running " + fname + ": ")
-        top_level_search(f)
+        top_level_search(f, root_node)
 
 
 while running:
