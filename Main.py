@@ -207,15 +207,15 @@ def read_in_maze(string):
         bfs_obj = BFS()
         greedy_obj = GREEDY()
         astar_obj = A_STAR()
-        search_function_list = [["Depth First Search", dfs_obj.solve_maze, start_node],
-                                ["Breadth First Search", bfs_obj.solve_maze],
+        search_function_list = [["Depth First Search", dfs_obj.solve_maze, start_node, None],
+                                ["Breadth First Search", bfs_obj.solve_maze, start_node, None],
                                 ["Greedy Search", greedy_obj.solve_maze, start_node, end_node],
                                 ["A* Search", astar_obj.solve_maze, start_node, end_node]]
 
         # print the results of each search
-        for fname, f, nodes in search_function_list:
+        for fname, f, start, end in search_function_list:
             output_file.write(fname + ": \n")
-            top_level_search(f, nodes)
+            top_level_search(f, start, end)
 
 
 while running:
