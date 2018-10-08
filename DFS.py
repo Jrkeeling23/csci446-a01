@@ -5,8 +5,6 @@ May need a maze passed in as array, or try to print from main.
 """
 import queue
 
-from MazeNode import MazeNode
-
 
 class DFS:
 
@@ -55,12 +53,15 @@ class DFS:
         self.current_node.visited = True
 
     def find_connected_nodes(self):
+        # TODO this line points connected_nodes to current_nodes's local_node list
         connected_nodes = self.current_node.get_local_nodes()  # A list of all connecting nodes
 
         while len(connected_nodes) >= 0:
             if len(connected_nodes) is 0:
                 break
             else:
+                # TODO I believe this is the problem, I think the following line
+                # TODO ends up removing the connections for the nodes
                 connecting_node = connected_nodes.pop()
                 # If the node has not been visited
                 if self.check_if_visited(connecting_node[1]) is False:
