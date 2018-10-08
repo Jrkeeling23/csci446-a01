@@ -167,7 +167,9 @@ def read_in_maze(string):
         :return : Nothing
         """
         # get list of path nodes
-        solution_list = func(root)
+        num_steps, num_expanded, solution_list = func(root)
+        output_file.write("Number of steps in solution: " + num_steps
+                          + "\nNumber of nodes expanded: " + num_expanded + "\n")
 
         sub_list = []
         # convert solution to sub points
@@ -200,7 +202,7 @@ def read_in_maze(string):
 
     if running:
         dfs_obj = DFS()
-        bfs_obj = BFS(root_node, len(maze_xy)*len(maze_xy[0]))
+        # bfs_obj = BFS(len(maze_xy)*len(maze_xy[0]))
         search_function_list = [["Depth First Search", dfs_obj.solve_maze]]
         # ["Breadth First Search", bfs_obj.solve_maze]
 
