@@ -9,6 +9,7 @@ running = True
 start_indicator = 'P'  # string representing the start of the maze
 end_indicator = '*'  # string representing the end of the maze
 wall_indicator = '%'  # string representing a wall in the maze
+output_file = open('output.txt', 'w+')
 
 
 def read_in_maze(string):
@@ -148,12 +149,12 @@ def read_in_maze(string):
                             sub = True
                             break
                 if sub and maze[i][j] != start_indicator and maze[i][j] != end_indicator:
-                    print(sub_char, end="")
+                    output_file.write(sub_char)
                 elif maze[i][j] == wall_indicator:
-                    print("%", end="")
+                    output_file.write("%")
                 else:
-                    print(maze[i][j], end="")
-            print("")
+                    output_file.write(maze[i][j])
+            output_file.write("\n")
 
     def top_level_search(func, root):
         """
@@ -197,18 +198,21 @@ def read_in_maze(string):
     else:
         print("Please enter O, M, or L")
 
-    dfs_obj = DFS()
-    bfs_obj = BFS(root_node, len(maze_xy)*len(maze_xy[0]))
-    search_function_list = [["Depth First Search", dfs_obj.solve_maze],
-                            ["Breadth First Search", bfs_obj.solve_maze]]
+    if running:
+        dfs_obj = DFS()
+        bfs_obj = BFS(root_node, len(maze_xy)*len(maze_xy[0]))
+        search_function_list = [["Depth First Search", dfs_obj.solve_maze]]
+        # ["Breadth First Search", bfs_obj.solve_maze]
 
-    # print the results of each search
-    for fname, f in search_function_list:
-        print("Now running " + fname + ": ")
-        top_level_search(f, root_node)
+        # print the results of each search
+        for fname, f in search_function_list:
+            output_file.write(fname + ": \n")
+            top_level_search(f, root_node)
 
 
 while running:
     inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
                      " O for open maze, and L for large maze, and Q to quit: ")
     read_in_maze(inp)
+
+output_file.close()
