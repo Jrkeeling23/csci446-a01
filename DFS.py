@@ -14,6 +14,7 @@ class DFS:
         self.frontier_stack = queue.LifoQueue(maxsize=0)
         self.current_node = None
         self.visited_list = []
+        self.test_list = []
 
     def solve_maze(self, start_node):
         self.current_node = start_node
@@ -27,7 +28,12 @@ class DFS:
             else:
                 self.current_node = possible_node  # Make current node now the unvisited returned node.
                 self.add_to_frontier()  # Add unvisited node to stack
-        return self.visited_list
+
+                # TODO Justin the only thing I did was add test_list, and change the return right here
+                # TODO this will trace out all nodes expanded in the search. We do need this value,
+                # TODO but I will leave it to you to decide if this answers the problem statement
+                self.test_list.append(self.current_node)
+        return self.test_list
 
     def add_to_frontier(self):
         self.frontier_stack.put(self.current_node)
