@@ -110,7 +110,7 @@ class GREEDY:
     # Check for which one has the shortest manhatten distance, and return it
     def find_connected_nodes(self,node):
         #self.current_node in place of node
-        connected_nodes = node.get_local_nodes()
+        connected_nodes = node.get_local_nodes().copy
         nodeList = []
         # Put all of the connected nodes into a list
         while len(connected_nodes) >= 0:
