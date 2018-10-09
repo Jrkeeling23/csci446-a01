@@ -15,6 +15,7 @@ class DFS:
         :param start_node: the starting point of the maze.
         :return visited_list:  a list of all visited nodes while completing search
         """
+        nodes_in_solution = 0
         self.current_node = start_node  # give current_node a value of the starting node.
         self.add_to_frontier()  # add current node to the stack.
         while self.current_node.is_end is not True:  # continue until end of maze.
@@ -24,10 +25,12 @@ class DFS:
 
             if possible_node is None:
                 self.remove_from_frontier()  # remove current from stack since there are no unvisited connecting nodes
+                nodes_in_solution -= 1
             else:
                 self.current_node = possible_node  # make current node now the unvisited returned node
                 self.add_to_frontier()  # add unvisited node to stack
-        return 0, self.visited_list
+                nodes_in_solution += 1
+        return nodes_in_solution, self.visited_list
 
     def add_to_frontier(self):  # adds the current node to the frontier stack
         self.visited_list.append(self.current_node)

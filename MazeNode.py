@@ -17,6 +17,7 @@ class MazeNode:
         self.visited = False
         self.is_start = False
         self.is_end = False
+        self.value = 0
 
         # provides a function for updating the local node list
         self.__local_nodes = []    # add in form [distance, MazeNode]
