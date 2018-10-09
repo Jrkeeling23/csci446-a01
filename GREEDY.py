@@ -2,6 +2,7 @@
 # -each node has a list of nodes with distance attached
 # expands closest node to goal
 
+#Test Comment
 class GREEDY:
 
     def __init__(self):
