@@ -206,8 +206,8 @@ def read_in_maze(string):
         bfs_obj = BFS()
         greedy_obj = GREEDY()
         #astar_obj = A_STAR()
-        search_function_list = [["Depth First Search", dfs_obj.solve_maze],
-                                ["Breadth First Search", bfs_obj.solve_maze],
+        search_function_list = [["\nDepth First Search", dfs_obj.solve_maze],
+                                ["\nBreadth First Search", bfs_obj.solve_maze],
                                 #["Greedy Search", greedy_obj.solve_maze],
                                 #["A* Search", astar_obj.solve_maze]
                                 ]
