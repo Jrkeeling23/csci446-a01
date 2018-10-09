@@ -29,7 +29,7 @@ class BFS:
             else:  # if the list does not have nodes
                 self.remove_from_frontier()
 
-        return self.visited
+        return 0, self.visited
 
     def add_to_frontier(self, adding_node):  # adds the current node to the queue
         self.frontier_queue.put(adding_node)  # add current_node to queue

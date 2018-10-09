@@ -27,11 +27,7 @@ class DFS:
             else:
                 self.current_node = possible_node  # make current node now the unvisited returned node
                 self.add_to_frontier()  # add unvisited node to stack
-
-                # TODO Justin the only thing I did was add test_list, and change the return right here
-                # TODO this will trace out all nodes expanded in the search. We do need this value,
-                # TODO but I will leave it to you to decide if this answers the problem statement
-        return self.visited_list
+        return 0, self.visited_list
 
     def add_to_frontier(self):  # adds the current node to the frontier stack
         self.visited_list.append(self.current_node)
