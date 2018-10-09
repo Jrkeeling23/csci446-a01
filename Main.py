@@ -169,8 +169,7 @@ def read_in_maze(string):
         """
         # get list of path nodes
         num_steps, num_expanded, solution_list = func(start_node, end_node)
-        output_file.write("Number of steps in solution: " + num_steps
-                          + "\nNumber of nodes expanded: " + num_expanded + "\n")
+        output_file.write("Number of steps in solution: %d \nNumber of nodes expanded: %d \n" % (num_steps, num_expanded))
 
         sub_list = []
         # convert solution to sub points
