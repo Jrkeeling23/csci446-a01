@@ -205,11 +205,12 @@ def read_in_maze(string):
         dfs_obj = DFS()
         bfs_obj = BFS()
         greedy_obj = GREEDY()
-        astar_obj = A_STAR()
+        #astar_obj = A_STAR()
         search_function_list = [["Depth First Search", dfs_obj.solve_maze],
                                 ["Breadth First Search", bfs_obj.solve_maze],
-                                ["Greedy Search", greedy_obj.solve_maze],
-                                ["A* Search", astar_obj.solve_maze]]
+                                #["Greedy Search", greedy_obj.solve_maze],
+                                #["A* Search", astar_obj.solve_maze]
+                                ]
 
         # print the results of each search
         for fname, f in search_function_list:
@@ -217,9 +218,16 @@ def read_in_maze(string):
             top_level_search(f)
 
 
+input_list = ["o", "m", "l", "q"]
+index = 0
 while running:
-    inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
-                     " O for open maze, and L for large maze, and Q to quit: ")
+    # inp = "" + input("Enter the maze type you would like to run, M for medium maze,"
+    #                  " O for open maze, and L for large maze, and Q to quit: ")
+    print("Automatic running enabled: ", input_list[index])
+    inp = input_list[index]
+
     read_in_maze(inp)
+
+    index += 1
 
 output_file.close()

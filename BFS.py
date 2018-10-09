@@ -18,23 +18,20 @@ class BFS:
         while self.current_node.is_end is False:  # stop when current is end
             connecting_nodes = self.find_connected_nodes()  # get list of connected nodes
 
-            print(len(connecting_nodes))
             if len(connecting_nodes) > 0 or len(connecting_nodes) is not None:  # if the the list has nodes
                 for i in range(len(connecting_nodes)):  # iterate through nodes to add to the queue
-                    if i is 0:  # save as temp to make current node later
-                        self.add_to_frontier(connecting_nodes[i])  # add node to queue
-                    else:  # make current node equal to connecting node [i] to add to frontier
-                        self.add_to_frontier(connecting_nodes[i])  # add node to queue
-                self.remove_from_frontier()  # remove from queue when all connected nodes are in queue
-            else:  # if the list does not have nodes
-                self.remove_from_frontier()
+                    # make current node equal to connecting node [i] to add to frontier
+                    self.add_to_frontier(connecting_nodes[i])  # add node to queue
 
-        return 0, self.visited
+            self.remove_from_frontier()  # remove from queue when all connected nodes are in queue
+
+        return self.current_node.value, self.visited
 
     def add_to_frontier(self, adding_node):  # adds the current node to the queue
         self.frontier_queue.put(adding_node)  # add current_node to queue
         # self.visited.append(self.current_node)  # add current node to visited list
         self.change_visited_status(adding_node)  # Change visited to true
+        adding_node.value = self.current_node.value + 1
 
     def remove_from_frontier(self):  # remove node from tree
         self.current_node = self.frontier_queue.get()
