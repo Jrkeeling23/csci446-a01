@@ -43,9 +43,9 @@ class GREEDY:
 
             #sets smallest to the node we will be expanding, and marks it's position in the frontier
             for n in self.frontier_list:
+                #find connected nodes should return the node with the smallest distance to the goal
                 tempNodes = self.find_connected_nodes(n)
                 if (tempNodes != None):
-                    print(tempNodes)
                     if(self.getManToEnd(tempNodes)<self.getManToEnd(smallester)):
                         posTemp = tempiter
                         smallester = n
@@ -59,23 +59,25 @@ class GREEDY:
             possible_node = smallester  # Will be 'None' or the node with the shortest path from the beginning.
 
             if possible_node is None:
-                self.remove_from_frontier(self.remove_from_frontier(posTemp))  # Remove from list since there are no  unvisited connecting nodes.
+                print(posTemp)
+                self.remove_from_frontier(posTemp) # Remove from list since there are no  unvisited connecting nodes.
             else:
                 print("uNIQUE")
                 self.current_node = possible_node  # Make current node now the unvisited returned node.
                 self.add_to_frontier()  # Add unvisited node to list
-
-                self.test_list.append(self.current_node)
         return 0, 0, self.test_list
 
     def add_to_frontier(self):
+        print("ADD CALL: ")
         self.frontier_list.append(self.current_node)
         self.change_visited_status()
+        self.test_list.append(self.current_node)
 
     # Removes the targeted node from the frontier
     def remove_from_frontier(self, pos):
-
-        node = self.frontier_list.pop(pos)
+        print("REMOVAL CALL: "+str(pos))
+        node = self.frontier_list.__getitem__(pos)
+        self.frontier_list.remove(node)
 
         self.visited_list.append(node)
 
@@ -110,7 +112,7 @@ class GREEDY:
     # Check for which one has the shortest manhatten distance, and return it
     def find_connected_nodes(self,node):
         #self.current_node in place of node
-        connected_nodes = node.get_local_nodes().copy
+        connected_nodes = node.get_local_nodes().copy()
         nodeList = []
         # Put all of the connected nodes into a list
         while len(connected_nodes) >= 0:
@@ -121,20 +123,19 @@ class GREEDY:
                 connecting_node = connected_nodes.pop()
                 nodeList.append(connecting_node[1])
 
-        if(len(connected_nodes) > 0):
-            # initializes the smallest node as None
-            smallest = nodeList[0]
+        # initializes the smallest node as None
+        smallest = nodeList[0]
 
-            # TODO: make loop for checking the smallest of all the nodes on the frontier to expand?
-            # iterate through connected nodes to find the smallest
-            for node in nodeList:
-                # sets smallest to the current node if null, or if the smallest's distance to the end is larger than the current node's
-                if ((smallest == None) or (self.getManToEnd(smallest) > self.getManToEnd(node))):
+        # TODO: make loop for checking the smallest of all the nodes on the frontier to expand?
+        # iterate through connected nodes to find the smallest
+        for node in nodeList:
+            # sets smallest to the current node if null, or if the smallest's distance to the end is larger than the current node's
+            if ((smallest == None) or (self.getManToEnd(smallest) > self.getManToEnd(node))):
+                if(self.check_if_visited(smallest) == False):
                     smallest = node
                     #print("Smallest found!:"+str(smallest))
 
-            return (smallest)
-        return None
+        return (smallest)
 
 
 """
