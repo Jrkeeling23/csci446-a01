@@ -57,12 +57,16 @@ class GREEDY:
             print((str(smallester.coordinates)))
             if possible_node is None:
                 #(posTemp)
-                self.remove_from_frontier(posTemp) # Remove from list since there are no  unvisited connecting nodes.
+                print("removed?")
+                #self.remove_from_frontier() # Remove from list since there are no  unvisited connecting nodes.
             else:
                 print("uNIQUE")
+                previous_node = self.current_node
                 self.currentPos = posTemp
                 self.current_node = possible_node  # Make current node now the unvisited returned node.
                 self.add_to_frontier()  # Add unvisited node to list
+                self.remove_from_frontier(previous_node)
+
         return 0, 0, self.test_list
 
     def add_to_frontier(self):
@@ -77,12 +81,13 @@ class GREEDY:
         print(str(self.frontier_list))
 
     # Removes the targeted node from the frontier
-    def remove_from_frontier(self):
+    def remove_from_frontier(self, node):
         print("REMOVAL CALL: "+str(self.currentPos))
-        node = self.frontier_list.__getitem__(self.currentPos)
-        self.frontier_list.remove(node)
+        #node = self.frontier_list.__getitem__(self.currentPos)
 
         self.visited_list.append(node)
+        self.frontier_list.remove(node)
+
 
         if(len(self.frontier_list)>0):
             pass#self.current_node = self.frontier_list[0]
