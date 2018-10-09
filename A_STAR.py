@@ -75,6 +75,7 @@ class A_STAR:
         self.frontier_list.append(self.current_node)
         self.change_visited_status()
         self.test_list.append(self.current_node)
+        
 
     # Removes the targeted node from the frontier
     def remove_from_frontier(self, pos):
